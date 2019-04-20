@@ -9,7 +9,7 @@ from fastai import *
 from fastai.vision import *
 
 model_file_url = ''
-model_file_name = 'export'
+model_file_name = 'caliplants'
 classes = ['daffodils', 'echeveria', 'fuschia', 'ice_plant', 'poison_oak']
 path = Path(__file__).parent
 
@@ -47,7 +47,7 @@ async def analyze(request):
     data = await request.form()
     img_bytes = await (data['file'].read())
     img = open_image(BytesIO(img_bytes))
-    return JSONResponse({'result': learn.predict(img)[0]})
+    return JSONResponse({'result': str(learn.predict(img)[0])})
 
 if __name__ == '__main__':
     if 'serve' in sys.argv: uvicorn.run(app, host='0.0.0.0', port=8080)
